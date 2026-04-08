@@ -197,7 +197,11 @@ const quickQuestions = [
 ];
 
 const GOOGLE_IDENTITY_SCRIPT = 'https://accounts.google.com/gsi/client';
-const YOUTUBE_READONLY_SCOPE = 'https://www.googleapis.com/auth/youtube.readonly';
+const YOUTUBE_SCOPES = [
+  'https://www.googleapis.com/auth/youtube.readonly',
+  'https://www.googleapis.com/auth/youtube.upload',
+  'https://www.googleapis.com/auth/youtube.force-ssl',
+].join(' ');
 
 let googleIdentityScriptPromise: Promise<void> | null = null;
 
@@ -827,7 +831,7 @@ export default function App() {
       const tokenResponse = await new Promise<GoogleTokenResponse>((resolve, reject) => {
         const tokenClient = window.google?.accounts.oauth2.initTokenClient({
           client_id: googleClientId,
-          scope: YOUTUBE_READONLY_SCOPE,
+          scope: YOUTUBE_SCOPES,
           callback: resolve,
           error_callback: () => reject(new Error('Google sign-in was cancelled or blocked.')),
         });
@@ -943,7 +947,7 @@ export default function App() {
         thumbnailUrl: channel.snippet.thumbnails?.high?.url || channel.snippet.thumbnails?.default?.url,
         accessToken: tokenResponse.access_token,
         expiresAt,
-        scopes: [YOUTUBE_READONLY_SCOPE],
+        scopes: YOUTUBE_SCOPES.split(' '),
         stats: {
           subscriberCount: channel.statistics?.subscriberCount,
           videoCount: channel.statistics?.videoCount,
@@ -2486,12 +2490,12 @@ export default function App() {
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className="text-white font-medium">Google OAuth + YouTube channel lookup</p>
-                      <p className="text-sm text-gray-400">Requests read-only YouTube access and pulls your current channel details.</p>
+                      <p className="text-sm text-gray-400">Requests YouTube access for channel data, comments, replies, and uploads.</p>
                     </div>
                     <span className="text-xs px-2 py-1 rounded bg-red-600/20 text-red-300 border border-red-500/20">YouTube</span>
                   </div>
                   <p className="text-xs text-gray-500">
-                    Required env var: <code>VITE_GOOGLE_CLIENT_ID</code>. The access token is short-lived and may need to be refreshed by reconnecting.
+                    Required env var: <code>VITE_GOOGLE_CLIENT_ID</code>. The app asks for upload and comment permissions too, so reconnect if Google refreshes the token.
                   </p>
                   <button
                     onClick={() => void connectYouTubeAccount()}
