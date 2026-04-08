@@ -3,9 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vite",
-    "api": "node --env-file=.env.local api/server.js",
+    "api": "node api/server.js",
     "build": "vite build",
     "preview": "vite preview"
   },

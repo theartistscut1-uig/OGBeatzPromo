@@ -1,0 +1,14 @@
+{
+  "name": "ogbeatzpromo-api",
+  "private": true,
+  "type": "module",
+  "main": "function.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.8.0",
+    "@azure/storage-blob": "^12.28.0",
+    "pg": "^8.16.3"
+  }
+}

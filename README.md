@@ -8,13 +8,15 @@ MusicForge is a YouTube-first creator console built with React, Vite, and Azure-
 - YouTube connect flow from the app
 - YouTube upload workflow from the Post tab
 - YouTube comments loading and replies
-- Azure Function App routes for platform actions
+- Azure Static Web Apps managed API routes for platform actions
 
 Instagram code is still present, but YouTube is the primary workflow.
 
 ## Local Setup
 
 ### 1. Install dependencies
+
+Use Node 22 or newer. If your shell picks up a different Node version, run `nvm use` first.
 
 ```bash
 npm install
@@ -65,7 +67,7 @@ npm run dev
 
 ## Backend
 
-MusicForge uses the local backend in `api/` for development and the Azure Function App in production for:
+MusicForge uses the local backend in `api/server.js` for development and Azure managed functions in production for:
 
 - PostgreSQL-backed app data sync
 - Blob Storage uploads
@@ -76,18 +78,18 @@ MusicForge uses the local backend in `api/` for development and the Azure Functi
 - YouTube comments
 - YouTube uploads
 
-The frontend talks to `/api` by default in local development and to the Azure Function App when `VITE_AZURE_FUNCTION_APP_URL` is set.
+The frontend talks to `/api` by default in local development and to the live Static Web Apps API in production.
 
 ## Azure Deployment
 
 This repo can deploy the frontend to Azure Static Web Apps.
 
-The workflow uses GitHub Actions in `.github/workflows/deploy-azure-static-web-app.yml`.
+The workflow uses GitHub Actions in `.github/workflows/azure-static-web-apps-wonderful-sky-070af181e.yml`.
 
 Add this repository secret:
 
 ```text
-AZURE_STATIC_WEB_APPS_API_TOKEN
+AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_SKY_070AF181E
 VITE_GOOGLE_CLIENT_ID
 VITE_AZURE_FUNCTION_APP_URL
 ```
