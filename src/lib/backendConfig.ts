@@ -8,7 +8,9 @@ function ensureApiSuffix(value: string) {
 }
 
 export function getFunctionsBaseUrl() {
-  const explicit = import.meta.env.VITE_AZURE_FUNCTION_APP_URL || import.meta.env.VITE_API_BASE_URL;
+  const explicit = import.meta.env.DEV
+    ? import.meta.env.VITE_AZURE_FUNCTION_APP_URL || import.meta.env.VITE_API_BASE_URL
+    : "";
 
   if (explicit) {
     return ensureApiSuffix(explicit);

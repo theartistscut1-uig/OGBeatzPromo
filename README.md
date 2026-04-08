@@ -28,12 +28,10 @@ Create `.env`:
 
 ```env
 VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
-# Azure Function App root URL. The app appends /api automatically.
-# VITE_AZURE_FUNCTION_APP_URL=https://func-ogbeatz-api.azurewebsites.net
-
-# Optional: only set this if your API is not hosted alongside the frontend.
-# VITE_API_BASE_URL=http://localhost:8787/api
 ```
+
+In production, the frontend talks to the same-origin `/api` route that Azure Static Web Apps serves with the app.
+For local development, you can point the frontend at a separate backend with `VITE_AZURE_FUNCTION_APP_URL` or `VITE_API_BASE_URL`.
 
 ### 3. Configure server env
 
@@ -91,5 +89,4 @@ Add this repository secret:
 ```text
 AZURE_STATIC_WEB_APPS_API_TOKEN_WONDERFUL_SKY_070AF181E
 VITE_GOOGLE_CLIENT_ID
-VITE_AZURE_FUNCTION_APP_URL
 ```
